@@ -4,10 +4,16 @@ import HomeStack from "./HomeStack";
 import { IconRenderer, TabBarStyle, routes } from "./utils";
 import { routeType } from "./types";
 import { Theme } from "@/theme/theme";
+import { useContext } from "react";
+import { CartContext } from "@/contexts/cartContext";
+import Cart from "@/screens/Cart";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+
+  const { products } = useContext(CartContext);
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -39,8 +45,13 @@ export default function TabRoutes() {
           name="Cart"
           options={{
             tabBarLabel: "Carrinho",
+            tabBarBadge: products.length,
+            tabBarBadgeStyle: {
+              backgroundColor: Theme.colors.primary,
+              color: 'white'
+            }
           }}
-          component={HomeStack}
+          component={Cart}
         />
         <Tab.Screen
           name="Profile"
