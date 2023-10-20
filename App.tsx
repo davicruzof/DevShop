@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import TabRoutes from "@/routes/TabRoutes";
+import { Theme } from "@/theme/theme";
+import { ThemeProvider } from "styled-components";
+import { CartContextProvider, CartItem } from "@/contexts/cartContext";
 
 export default function App() {
+  const [products, setProducts] = useState<CartItem[]>([]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={Theme}>
+      <CartContextProvider
+        value={{
+          products,
+          setProducts,
+        }}
+      >
+        <TabRoutes />
+      </CartContextProvider>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
